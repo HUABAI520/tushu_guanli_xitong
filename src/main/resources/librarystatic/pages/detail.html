@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书详细页面</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/request.js"></script>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 240px;
+            height: 240px;
+
+        }
+
+        .image-wrapper {
+            position: absolute;
+            top: 65px;
+            left: 60px;
+            border-radius: 20px;
+            width: 240px;
+            height: 240px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            background-color: #90caf9;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 25%;
+            width: 200px;
+            height: 200px; /* 自动调整图像的高度以保持其宽高比 */
+        }
+
+        .introduction-text {
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .book-id-bg {
+            display: inline-flex;
+            background-color: #90caf9;
+            padding: 2px 8px 2px 0;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .con {
+            background-color: white;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="box">详情页</div>
+
+    <div class="con">
+        <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right"
+                 label-width="100px">
+            <el-button round type="details" size="mini" @click="handleReturn() " style="position: absolute;left: 0%">返回
+            </el-button>
+
+            <!--        <el-image-->
+            <!--                style="width: auto; height: 40px; border:none;cursor: pointer;"-->
+            <!--                :src="image"-->
+            <!--                :preview-src-list="[ image ]">-->
+            <!--            <div slot="error" class="image-slot">-->
+            <!--                <img src="../img/EMT.jpg" style="width: auto; height: 40px; border:none;">-->
+            <!--            </div>-->
+            <!--        </el-image>-->
+            <div class="container">
+                <div class="image-wrapper">
+                    <img :src="image" v-if="image">
+                </div>
+            </div>
+
+            <el-row>
+
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="图书编号" prop="bookId">
+                            <span>{{formData.bookId}}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="图书名称" prop="bookName">
+                            <span>{{formData.bookName}}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+
+            </el-row>
+            <el-row>
+
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="图书作者" prop="author">
+                            <span>{{formData.author}}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="出版社">
+                            <span>{{formData.publish}}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="类别">
+                            <span>{{formData.classId}}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="数量">
+                            <span>{{ formData.number }}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="book-id-bg">
+                        <el-form-item label="IBSN">
+                            <span>{{ formData.ibsn }}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="24">
+                    <div class="book-id-bg">
+                        <el-form-item label="简介">
+                            <span class="introduction-text">{{ formData.introduction }}</span>
+                        </el-form-item>
+                    </div>
+                </el-col>
+            </el-row>
+        </el-form>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script>
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            id: 0,
+            formData: {},//表单数据
+            classList: [],//分类数据
+            image: ["../img/cuo.jpg"],
+        },
+        created() {
+
+            var urlParams = new URLSearchParams(window.location.search);
+            this.id = urlParams.get('id');
+            this.detail();
+
+        },
+        methods: {
+            detail() {
+                axios.get("/book/findById?id=" + this.id).then((res) => {
+                    if (res.data.code = '1') {
+                        //进行回显，基于VUE的数据绑定实现
+                        this.formData = res.data.data;
+                        this.getImage(this.formData.bookImg);
+                        this.getClassList(this.formData.classId);
+                    } else {
+                        //查询失败，弹出提示
+                        this.$message.error(res.data.msg);
+                    }
+                });
+            },
+            getClassList(id) {
+                axios.get("/class/listId?id=" + id,).then((res) => {
+                    if (res.data.code == 1) {
+                        this.formData.classId = res.data.data
+                    } else {
+                        this.$message.error(res.data.msg || '操作失败')
+                    }
+                })
+            },
+            handleReturn() {
+                window.history.go(-1);
+            },
+            getImage(img) {
+                axios.get("/common/download?name=" + img, {responseType: 'blob'})
+                    .then((res) => {
+                        if (res.data.size == 0) {
+                            console.log("后端返回的照片为空");
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.readAsDataURL(res.data);
+                        reader.onload = () => {
+                            this.image = reader.result;
+                        };
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
+            }
+
+            // getImage(image) {
+            //     return `/common/download?name=${image}`
+            // },
+        }
+    });
+</script>
+
+
+

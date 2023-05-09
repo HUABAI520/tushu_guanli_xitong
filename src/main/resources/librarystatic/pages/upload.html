@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文件上传</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="../plugins/elementui/index.css">
+  <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/request.js"></script>
+  <style>
+    /* 添加 */
+    .addBrand-container .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .addBrand-container .avatar-uploader .el-upload:hover {
+      border-color: #409eff;
+    }
+    .addBrand-container .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 200px;
+      height: 160px;
+      line-height: 160px;
+      text-align: center;
+    }
+    .addBrand-container .avatar {
+      width: 160px;
+      height: 160px;
+      display: block;
+    }
+    .addBrand-container .el-form--inline .el-form-item__content {
+      width: 293px;
+    }
+    .addBrand-container .el-input {
+      width: 293px;
+    }
+
+    .addBrand-container {
+      margin: 30px;
+    }
+    .addBrand-container .container {
+      position: relative;
+      z-index: 1;
+      background: #fff;
+      padding: 30px;
+      border-radius: 4px;
+      min-height: 500px;
+    }
+    .addBrand-container .container .subBox {
+      padding-top: 30px;
+      text-align: center;
+      border-top: solid 1px #f3f4f7;
+    }
+  </style>
+</head>
+<body>
+<div class="addBrand-container" id="food-add-app">
+  <div class="container">
+    <el-upload class="avatar-uploader"
+               action="/common/upload"
+               :show-file-list="false"
+               :on-success="handleAvatarSuccess"
+               :before-upload="beforeUpload"
+               ref="upload">
+      <img v-if="imageUrl" :src="imageUrl" class="avatar"></img>
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </el-upload>
+  </div>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="../js/vue.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script>
+  new Vue({
+    el: '#food-add-app',
+    data() {
+      return {
+        formData: {},//表单数据
+        imageUrl: ''
+      }
+    },
+    methods: {
+      handleAvatarSuccess(response, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+        this.formData.file = file.name;
+        alert(this.formData)
+      },
+      beforeUpload (file) {
+        if(file){
+          const suffix = file.name.split('.')[1]
+          const size = file.size / 1024 / 1024 < 2
+          if(['png','jpeg','jpg'].indexOf(suffix) < 0){
+            this.$message.error('上传图片只支持 png、jpeg、jpg 格式！')
+            this.$refs.upload.clearFiles()
+            return false
+          }
+          if(!size){
+            this.$message.error('上传文件大小不能超过 2MB!')
+            return false
+          }
+          return file
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

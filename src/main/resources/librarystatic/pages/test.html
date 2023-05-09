@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图书信息展示</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/request.js"></script>
+    <style>
+        .book-container {
+            /*max-width: 1200px;*/
+            /*margin: 0 auto;*/
+            width: 100%;
+            height: 100%;
+        }
+
+        .book-header {
+            font-size: large;
+            background-color: #409EFF;
+            color: #fff;
+            text-align: center;
+            padding: 0 0;
+        }
+
+        .book-cover {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .book-cover img {
+            width: 200px;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        @media screen and (max-width: 767px) {
+            .book-cover {
+                display: none;
+            }
+        }
+        .book-cover {
+            width: 300px;
+            height: 280px;
+            background-color:white; /* 设置背景颜色为天蓝色 */
+            border-radius: 30px; /* 设置圆角半径为10px */
+        }
+        .book-cover2 {
+            white-space: pre-wrap;
+            background-color:gainsboro; /* 设置背景颜色为天蓝色 */
+            border-radius: 30px; /* 设置圆角半径为10px */
+        }
+        .book-main {
+            background-color:white; /* 设置背景颜色为天蓝色 */
+            border-radius: 30px; /* 设置圆角半径为10px */
+            padding: 20px;
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+            .book-cover {
+                margin-bottom: 0;
+            }
+        }
+        /*.el-input__inner {*/
+        /*    border:none;*/
+        /*    background-color: transparent;*/
+        /*}*/
+        .el-form-item__content .el-input__inner {
+            border: none;
+            background-color: transparent;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <el-container class="book-container">
+        <el-header class="book-header">
+            <h1>图书详情页</h1>
+        </el-header>
+        <el-main class="book-main">
+            <el-row>
+                <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+                    <div class="book-cover">
+                        <img src="../img/EMT.jpg">
+                    </div>
+                </el-col>
+                <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
+                    <div class="book-cover2">
+                    <el-form ref="bookForm" :model="book" label-width="80px" label-position="left">
+                        <el-form-item label="ISBN">
+                            <el-input v-model="book.isbn" disabled:border="false"></el-input>
+                        </el-form-item>
+                        <el-form-item label="书名">
+                            <el-input v-model="book.name" disabled:border="false"></el-input>
+                        </el-form-item>
+                        <el-form-item label="作者名">
+                            <el-input v-model="book.author" disabled:border="false"></el-input>
+                        </el-form-item>
+                        <el-form-item label="出版社">
+                            <el-input v-model="book.publisher" disabled:border="false"></el-input>
+                        </el-form-item>
+                        <el-form-item label="分类名">
+                            <el-input v-model="book.category" disabled:border="false"></el-input>
+                        </el-form-item>
+                        <el-form-item label="数量">
+                            <el-input v-model="book.count" disabled:border="false" ></el-input>
+                        </el-form-item>
+                        <el-form-item label="图书简介">
+
+                            <!--                            <el-tag v-model="book.summary " disable-transitions style="word-wrap: break-word;">{{book.summary}}</el-tag>-->
+                            <el-input v-model="book.summary" style="border: none ;background-color: transparent;" type="textarea"  ></el-input>
+                        </el-form-item>
+                    </el-form>
+                    </div>
+                </el-col>
+            </el-row>
+        </el-main>
+    </el-container>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            book: {
+                isbn: '9787111549738',
+                name: 'JavaScript高级程序设计',
+                author: 'Nicholas C. Zakas',
+                publisher: '人民邮电出版社',
+                category: '计算机',
+                count: 3,
+                summary: '本书为专业JavaScript程序员而编写，是一本较为全面的JavaScript书籍，介绍了JavaScript语言的方方面面，包括核心语法、DOM、BOM、ECMAScript 5、高级技巧、Ajax、jQuery、JSON、模块化编程、正则表达式等等。'
+            }
+        }
+        });
+</script>
+
+</body>
+</html>
