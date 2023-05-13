@@ -221,6 +221,12 @@
                 //进行表单校验
                 this.$refs['dataEditForm'].validate((valid) => {
                     if(valid){
+                        if(this.formData.status = '禁用'){
+                            this.formData.status = 0;
+                        }
+                        else if(this.formData.status = '启用'){
+                            this.formData.status = 1;
+                        }
                         //表单校验通过，可以提交数据
                         axios.post("/user/edit",this.formData).then((res) => {
                             if(res.data.code=='1'){

@@ -108,7 +108,7 @@ public class YonghuController {
     * */
     @PostMapping("/edit")
     public R<String> YonghuUpdate(@RequestBody Yonghu yonghu) {
-        System.out.println(yonghu.toString());
+        log.info(yonghu.toString());
         yonghuService.updateById(yonghu);
         return R.success("修改用户信息成功！");
     }
