@@ -1,5 +1,8 @@
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 604800
 #  ssl:
 #    key-store: classpath:boothttps.jks
 ##    key-alias: tomcat
@@ -27,3 +30,5 @@ mybatis-plus:
 
 tu:
   path: E:\tushuguanlixitongpicture\
+
+
