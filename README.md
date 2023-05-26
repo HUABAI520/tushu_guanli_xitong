@@ -4,7 +4,7 @@
 # 静态资源在 src/main/resources/librarystatic
 # 配置文件 maven仓库 :pom.xml   springboot配置：application.yml
 # 分工：
-1.数据库设计：熊启 ；|
+1.数据库设计：sql + java（service+Mapper+实体类）+全局异常处理，自定义序列化器：熊启 ；|
 2.图书管理+分类 前端和后端 + 全部整合：何龙 ；|
 3.读者管理+登录注册 前端和后端 ：肖飞宇 ；|
 4.借还管理+收藏管理 前端和后端： ；谢斌|
