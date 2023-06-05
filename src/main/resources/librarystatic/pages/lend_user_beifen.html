@@ -28,7 +28,6 @@
             <div class="filter-container">
                 <el-input placeholder="图书编号" suffix-icon="el-icon-search" v-model="pagination.queryString" style="width: 200px;" class="filter-item"></el-input>
                 <el-button @click="findPage()" class="dalfBut">查询</el-button>
-                <el-button type="success" class="butT" @click="handleExport()">导出</el-button>
             </div>
             <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
                 <el-table-column type="index" align="center" label="序号"></el-table-column>
