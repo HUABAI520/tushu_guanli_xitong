@@ -318,8 +318,8 @@
                 // alert(userInfo)
             }
             if (item == null) {
-                alert("请登录！！！！")
-                window.top.location.href = '/librarystatic/login.html'
+                // alert("请登录！！！！")
+                // window.top.location.href = '/librarystatic/login.html'
             }
             if (!item) {
                 //alert(2222);
@@ -383,11 +383,8 @@
                                 type: 'success',
                                 message: res.data.data,
                             });
-
                         } else {
-                            //执行失败
-                            //this.$alert("借阅失败,此书目前已没有数量了!!");
-                            this.$message.error(res.data.message);
+                            this.$message.error(res.data.msg);
                         }
                     });
                 }).catch(() => {

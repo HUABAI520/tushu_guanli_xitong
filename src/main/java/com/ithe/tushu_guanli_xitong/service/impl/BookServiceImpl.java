@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * @author L
+ */
 @Slf4j
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book>implements BookService {

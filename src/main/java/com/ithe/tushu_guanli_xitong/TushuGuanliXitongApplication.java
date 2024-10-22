@@ -7,7 +7,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@Slf4j
 @SpringBootApplication
 @ServletComponentScan
 @EnableTransactionManagement

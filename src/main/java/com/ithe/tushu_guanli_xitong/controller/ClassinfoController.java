@@ -88,7 +88,7 @@ public class ClassinfoController {
     * */
     @GetMapping("/findById")
     public R<Classinfo> find(Long id){
-        System.out.println("根据id查询用户信息"+id);
+        System.out.println("根据id查询分类信息"+id);
         Classinfo classinfo = classinfoService.getById(id);
         if(classinfo != null){
             return R.success(classinfo);

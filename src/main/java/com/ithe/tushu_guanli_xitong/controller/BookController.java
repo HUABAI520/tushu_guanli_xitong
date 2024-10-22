@@ -170,10 +170,12 @@ public class BookController {
         Book book = bookService.getOne(bookLambdaQueryWrapper);
 
         if ((book.getNumber() - number) < 0) {
-            if (book.getNumber() == 0)
+            if (book.getNumber() == 0) {
                 return R.error("借阅失败！图书储藏量现为0！请后续借阅！");
-            else
+            } else {
                 return R.error("借阅失败！图书储藏量储藏量少于" + number + "！请更改数量借阅！");
+
+            }
 
         }
         if (number > 3) {
@@ -220,9 +222,10 @@ public class BookController {
         bookService.updateById(book);
         return R.success("书籍信息修改成功！");
     }
-/*
-  删除信息
-* */
+
+    /*
+      删除信息
+    * */
     @DeleteMapping("/delete")
     public R<String> delete(int bookId) {
         log.info("{}", bookId);
@@ -234,11 +237,14 @@ public class BookController {
 
     @GetMapping("/findById")
     public R<Book> find(int id) {
-        System.out.println("================="+id);
+        System.out.println("=================" + id);
         Book book = bookService.getById(id);
-        if (book != null)
+        if (book != null) {
             return R.success(book);
+        }
+
         return R.error("书籍信息不存在！");
     }
+
 
 }

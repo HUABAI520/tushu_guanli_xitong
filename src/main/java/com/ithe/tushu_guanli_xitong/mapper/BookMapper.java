@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ithe.tushu_guanli_xitong.entity.Book;
 import org.apache.ibatis.annotations.Mapper;
 
+/**
+ * @author L
+ */
 @Mapper
 public interface BookMapper extends BaseMapper<Book> {
 }

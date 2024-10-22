@@ -1,23 +1,27 @@
+#指定服务器端口号
 server:
   port: 8080
-  servlet:
-    session:
-      timeout: 604800
 #  ssl:
 #    key-store: classpath:boothttps.jks
 ##    key-alias: tomcat
 #    enabled: true
 #    key-store-type: JKS
 #    key-store-password: 123456
+
+#spring boot的设置
 spring:
+  #应用程序的名称
   application:
     name: tushu_guanli_xitong
+  #应用程序链接MySQL数据库的配置，使用druid作为连接池
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
+      #连接本机3306端口上的库名为library的MySQL数据库，服务器时区设置为Asia/Shanghai，使用UTF-8编码，zero值转换为null，禁用SSL协议，允许使用非加密方式进行连接
       url: jdbc:mysql://localhost:3306/library?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: 123456
+#MyBatis-Plus的配置，开启了驼峰映射，设置ID生成策略为ASSIGN_ID
 mybatis-plus:
   configuration:
     #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
@@ -27,7 +31,6 @@ mybatis-plus:
     db-config:
       id-type: ASSIGN_ID
 
+#自定义配置项，表示图片存储路径
 tu:
   path: E:\tushuguanlixitongpicture\
-
-

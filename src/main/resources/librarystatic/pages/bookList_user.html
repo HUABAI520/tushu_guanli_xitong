@@ -85,17 +85,7 @@
                 <el-button type="primary" class="butT" @click="handleCreate()" v-if="this.username == 'admin'">新建
                 </el-button>
                 <el-button type="success" class="butT" @click="handleExport()">导出</el-button>
-                <el-upload
-                        style="float: right"
-                        class="upload-demo"
-                        action="/upload"
-                        :on-success="onSuccess"
-                        :on-preview="handlePreview"
-                        accept=".pdf"
-                        :limit="10">
-                    <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">只能上传pdf文件</div>
-                </el-upload>
+
             </div>
             <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row >
                 <el-table-column type="index" align="center" label="序号"></el-table-column>
@@ -160,153 +150,6 @@
                 </div>
             </el-dialog>
 
-            <!-- 新增标签弹层 -->
-            <div class="add-form">
-                <el-dialog title="新增图书" :visible.sync="dialogFormVisible">
-                    <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right"
-                             label-width="100px">
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="图书名称" prop="bookName">
-                                    <el-input v-model="formData.bookName"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="图书作者" prop="author">
-                                    <el-input v-model="formData.author"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-
-                        </el-row>
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="出版社">
-                                    <el-input v-model="formData.publish"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="类别">
-                                    <el-select v-model="formData.classId">
-                                        <el-option v-for="(item,index) in classList" :key="index"
-                                                   :label="item.className" :value="item.classId"/>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="数量">
-                                    <el-input v-model="formData.number"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="IBSN">
-                                    <el-input v-model="formData.ibsn"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="简介">
-                                    <el-input type="textarea" v-model="formData.introduction"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row><el-row>
-                        <el-form-item
-                                label="图书图片"
-                                prop="region"
-                                class="uploadImg"
-                        >
-                            <div class="addBrand-container" >
-                                <div class="container">
-                                    <el-upload class="avatar-uploader"
-                                               action="/common/upload"
-                                               :show-file-list="false"
-                                               :on-success="handleAvatarSuccess"
-                                               :before-upload="beforeUpload"
-                                               ref="upload">
-                                        <img v-if="imageUrl" :src="imageUrl" class="avatar"></img>
-                                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                    </el-upload>
-                                </div>
-                            </div>
-                        </el-form-item>
-                    </el-row>
-
-
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogFormVisible = false">取消</el-button>
-                        <el-button type="primary" @click="handleAdd()">确定</el-button>
-                    </div>
-                </el-dialog>
-            </div>
-
-            <!-- 编辑标签弹层 -->
-            <div class="add-form">
-                <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
-                    <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right"
-                             label-width="100px">
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="图书编号" prop="bookId">
-                                    <el-input :disabled="true" v-model="formData.bookId"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="图书名称" prop="bookName">
-                                    <el-input v-model="formData.bookName"/>
-                                </el-form-item>
-                            </el-col>
-
-                        </el-row>
-                        <el-row>
-
-                        </el-row>
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="图书作者" prop="author">
-                                    <el-input v-model="formData.author"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="出版社">
-                                    <el-input v-model="formData.publish"/>
-                                </el-form-item>
-                            </el-col>
-
-                        </el-row>
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="类别">
-                                    <el-input v-model="formData.classId"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="数量">
-                                    <el-input v-model="formData.number"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                        <el-row>
-                            <el-col :span="12">
-                                <el-form-item label="简介">
-                                    <el-input type="textarea" v-model="formData.introduction"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
-                        <el-button type="primary" @click="handleEdit()">确定</el-button>
-                    </div>
-                </el-dialog>
-            </div>
         </div>
     </div>
 
@@ -397,36 +240,7 @@
                     this.pagination.currentPage-- // 当前页减一,跳转到上一页
                 }
             },
-            //添加
-            handleAdd() {
-                //进行表单校验
-                this.$refs['dataAddForm'].validate((valid) => {
-                    if (valid) {
-                        //表单校验通过，发生ajax请求，将录入的数据提交到后台进行处理
-                        console.log(this.formData);
-                        axios.post("/book/add", this.formData).then((res) => {
-                            //关闭新增窗口
-                            this.dialogFormVisible = false;
-                            if (res.data.code == '1') {//执行成功
-                                //新增成功后，重新调用分页查询方法，查询出最新的数据
-                                this.findPage();
-                                //弹出提示信息
-                                this.$message({
-                                    message: res.data.data,
-                                    type: 'success'
-                                });
-                            } else {//执行失败
-                                //弹出提示
-                                this.$message.error(res.data.msg);
-                            }
-                        });
-                    } else {
-                        //校验不通过
-                        this.$message.error("数据校验失败，请检查你的输入信息是否正确！");
-                        return false;
-                    }
-                });
-            },
+
             //分页查询
             findPage() {
                 //发送ajax请求，提交分页相关请求参数（页码、每页显示记录数、查询条件）
@@ -454,13 +268,6 @@
             // 重置表单
             resetForm() {
                 this.formData = {};//重置数据
-            },
-            // 弹出添加窗口
-            handleCreate() {
-                this.getClassList();
-                //弹出新增窗口
-                this.dialogFormVisible = true;
-                this.resetForm();
             },
             /*查看详细页*/
             handleDetail(row) {
